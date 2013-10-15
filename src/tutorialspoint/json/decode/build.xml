@@ -1,0 +1,32 @@
+<project name="JsonDecodeDemo" basedir=".">
+  <property name="src.dir" location="." />
+  <property name="lib.dir" location="../../../../lib" />
+  <property name="build.dir" location="../../../../build" />
+  <property name="class.dir" location="${build.dir}/class" />
+
+  <target name="ex" depends="clean,build,jar,run" />
+
+  <target name="clean">
+    <delete dir="${build.dir}" />
+  </target>
+
+  <target name="build">
+    <mkdir dir="${class.dir}" />
+    <javac srcdir="${src.dir}:${lib.dir}"
+           destdir="${class.dir}"
+           includeantruntime="false" />
+  </target>
+  
+  <target name="jar">
+    <jar destfile="${build.dir}/${ant.project.name}.jar" basedir="${class.dir}">
+      <!--<zipfileset includes="**/*.class" src="${lib.dir}/abc.jar" />-->
+      <manifest>
+        <attribute name="Main-Class" value="tutorialspoint.json.decode.JsonDecodeDemo" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="run">
+    <java jar="${build.dir}/${ant.project.name}.jar" fork="true" />
+  </target>
+</project>

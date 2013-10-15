@@ -1,0 +1,46 @@
+<project name="JsonEcodeDemo" basedir=".">
+  <property name="src.dir" location="." />
+  <property name="lib.dir" location="../../../../lib" />
+  <property name="build.dir" location="../../../../build" />
+  <property name="class.dir" location="${build.dir}/class" />
+
+  <target name="ex-1" depends="clean,build,jar-1,run-1" />
+  <target name="ex-2" depends="clean,build,jar-2,run-2" />
+
+  <target name="clean">
+    <delete dir="${build.dir}" />
+  </target>
+
+  <target name="build">
+    <mkdir dir="${class.dir}" />
+    <javac srcdir="${src.dir}:${lib.dir}"
+           destdir="${class.dir}"
+           includeantruntime="false" />
+  </target>
+  
+  <target name="jar-1">
+    <jar destfile="${build.dir}/${ant.project.name}1.jar" basedir="${class.dir}">
+      <!--<zipfileset includes="**/*.class" src="${lib.dir}/abc.jar" />-->
+      <manifest>
+        <attribute name="Main-Class" value="tutorialspoint.json.write.JsonEncodeDemo1" />
+      </manifest>
+    </jar>
+  </target>
+  
+  <target name="jar-2">
+    <jar destfile="${build.dir}/${ant.project.name}2.jar" basedir="${class.dir}">
+      <!--<zipfileset includes="**/*.class" src="${lib.dir}/abc.jar" />-->
+      <manifest>
+        <attribute name="Main-Class" value="tutorialspoint.json.write.JsonEncodeDemo2" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="run-1">
+    <java jar="${build.dir}/${ant.project.name}1.jar" fork="true" />
+  </target>
+
+  <target name="run-2">
+    <java jar="${build.dir}/${ant.project.name}2.jar" fork="true" />
+  </target>
+</project>
