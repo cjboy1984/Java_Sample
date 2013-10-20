@@ -1,0 +1,27 @@
+<project name="FileStreamTest" basedir=".">
+  <property name="src.dir" location="." />
+  <property name="lib.dir" location="../../../lib" />
+  <property name="build.dir" location="../../../build" />
+  <property name="class.dir" location="${build.dir}/class" />
+
+  <target name="build">
+    <!-- clean -->
+    <delete dir="${build.dir}" />
+    
+    <!-- compile -->
+    <mkdir dir="${class.dir}" />
+    <javac srcdir="${src.dir}:${lib.dir}"
+           destdir="${class.dir}"
+           includeantruntime="false" />
+    
+    <!-- archieve -->
+    <jar destfile="${build.dir}/${ant.project.name}.jar" basedir="${class.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="tutorialspoint.fileio.FileStreamTest" />
+      </manifest>
+    </jar>
+    
+    <!-- run -->
+    <java jar="${build.dir}/${ant.project.name}.jar" fork="true" />
+  </target>
+</project>
